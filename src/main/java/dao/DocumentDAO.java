@@ -20,4 +20,5 @@ public class DocumentDAO {
     public List<Document> retrieveDocument(){
         return em.createQuery("SELECT d FROM Document d", Document.class).getResultList();
     }
+
 }

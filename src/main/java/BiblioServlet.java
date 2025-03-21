@@ -1,11 +1,13 @@
 
 
+import dao.BorrowDAO;
 import dao.DocumentDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import models.Borrow;
 import models.Document;
 
 
@@ -23,6 +25,7 @@ import java.util.logging.Logger;
 
 public class BiblioServlet extends HttpServlet {
     DocumentDAO dao = new DocumentDAO();
+    BorrowDAO br=new BorrowDAO();
     @Override
     public void init(){
 
@@ -36,6 +39,11 @@ public class BiblioServlet extends HttpServlet {
             request.setAttribute("documents", documents);
             request.getRequestDispatcher("document.jsp").forward(request, response);
 
+        }
+        if("emprunsCours".equals(demande)){
+            List<Borrow> borrows=br.retrieveEmpruntsEnCours();
+            request.setAttribute("borrows", borrows);
+            request.getRequestDispatcher("borrows.jsp").forward(request, response);
         }
     }
     @Override
